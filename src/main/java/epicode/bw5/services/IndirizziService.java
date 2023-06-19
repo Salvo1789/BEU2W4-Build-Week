@@ -1,12 +1,67 @@
 package epicode.bw5.services;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import epicode.bw5.entities.Cliente;
+import epicode.bw5.entities.Indirizzo;
+import epicode.bw5.entities.payloads.ModificaIndirizzoPayload;
+import epicode.bw5.exceptions.NotFoundException;
 import epicode.bw5.repositories.IndirizziRepository;
 
 @Service
 public class IndirizziService {
 	@Autowired
 	private IndirizziRepository indirizziRepo;
+	@Autowired
+	private ClientiService clientiService;
+
+	public Page<Indirizzo> find(int page, int size, String sortBy) {
+		if (size < 0)
+			size = 10;
+		if (size > 100)
+			size = 100;
+		Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+
+		return indirizziRepo.findAll(pageable);
+	}
+
+	public Indirizzo findById(UUID id) throws NotFoundException {
+		return indirizziRepo.findById(id).orElseThrow(() -> new NotFoundException("Indirizzo non trovato!"));
+
+	}
+
+	public Indirizzo findByIdAndUpdate(UUID id, ModificaIndirizzoPayload u) {
+		Indirizzo found = this.findById(id);
+		Cliente cliente = clientiService.findById(u.getIdCliente());
+		found.setId(id);
+		found.setVia(u.getVia());
+		found.setCivico(u.getCivico());
+		found.setLocalita(u.getLocalita());
+		found.setCap(u.getCap());
+		found.setComune(u.getComune());
+		found.setCliente(cliente);
+		return indirizziRepo.save(found);
+
+	}
+
+	public Indirizzo create(ModificaIndirizzoPayload u) {
+
+		Cliente cliente = clientiService.findById(u.getIdCliente());
+		Indirizzo newIndirizzo = new Indirizzo(u.getVia(), u.getCivico(), u.getLocalita(), u.getCap(), u.getComune(),
+				cliente);
+		return indirizziRepo.save(newIndirizzo);
+	}
+
+	public void findByIdAndDelete(UUID id) throws NotFoundException {
+		Indirizzo found = this.findById(id);
+		indirizziRepo.delete(found);
+
+	}
 }
