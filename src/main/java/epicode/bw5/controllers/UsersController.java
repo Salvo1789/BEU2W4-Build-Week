@@ -28,8 +28,8 @@ public class UsersController {
 	UsersService usersService;
 
 	@GetMapping("")
-	public Page<User> getPrenotazioni(@RequestParam(defaultValue = "0") int page,
-			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sortBy) {
+	public Page<User> getUsers(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,
+			@RequestParam(defaultValue = "id") String sortBy) {
 		return usersService.find(page, size, sortBy);
 	}
 
