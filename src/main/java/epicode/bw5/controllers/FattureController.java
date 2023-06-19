@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import epicode.bw5.entities.Fattura;
+import epicode.bw5.entities.payloads.AssegnaFatturaPayload;
 import epicode.bw5.entities.payloads.ModificaFatturaPayload;
 import epicode.bw5.entities.payloads.NuovaFatturaPayload;
 import epicode.bw5.services.FattureService;
@@ -42,6 +43,11 @@ public class FattureController {
 	@PutMapping("/{id}")
 	public Fattura getByIdAndUpdate(@PathVariable UUID id, @RequestBody ModificaFatturaPayload body) {
 		return fattureService.findByIdAndUpdate(id, body);
+	}
+
+	@PutMapping("/{id}/assegna-cliente")
+	public Fattura AssegnaCliente(@PathVariable UUID id, @RequestBody AssegnaFatturaPayload body) {
+		return fattureService.assegnaCliente(id, body);
 	}
 
 	@GetMapping("/{id}")

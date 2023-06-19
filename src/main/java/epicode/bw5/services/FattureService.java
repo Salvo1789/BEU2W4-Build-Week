@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import epicode.bw5.entities.Cliente;
 import epicode.bw5.entities.Fattura;
+import epicode.bw5.entities.payloads.AssegnaFatturaPayload;
 import epicode.bw5.entities.payloads.ModificaFatturaPayload;
 import epicode.bw5.entities.payloads.NuovaFatturaPayload;
 import epicode.bw5.exceptions.BadRequestException;
@@ -47,6 +48,19 @@ public class FattureService {
 		found.setAnno(u.getAnno());
 		found.setData(u.getData());
 		found.setImporto(u.getImporto());
+		found.setCliente(cliente);
+		return fattureRepo.save(found);
+
+	}
+
+	public Fattura assegnaCliente(UUID id, AssegnaFatturaPayload u) {
+		Fattura found = this.findById(id);
+		Cliente cliente = clientiService.findById(u.getIdCliente());
+		found.setId(id);
+		found.setNumero(found.getNumero());
+		found.setAnno(found.getAnno());
+		found.setData(found.getData());
+		found.setImporto(found.getImporto());
 		found.setCliente(cliente);
 		return fattureRepo.save(found);
 

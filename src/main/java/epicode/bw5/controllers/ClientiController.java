@@ -1,5 +1,6 @@
 package epicode.bw5.controllers;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import epicode.bw5.entities.Cliente;
+import epicode.bw5.entities.Fattura;
+import epicode.bw5.entities.Indirizzo;
 import epicode.bw5.entities.payloads.ModificaClientePayload;
 import epicode.bw5.services.ClientiService;
 
@@ -46,6 +49,16 @@ public class ClientiController {
 	@GetMapping("/{id}")
 	public Cliente getById(@PathVariable UUID id) throws Exception {
 		return clientiService.findById(id);
+	}
+
+	@GetMapping("/{id}/indirizzi")
+	public List<Indirizzo> listaIndirizzi(@PathVariable UUID id) throws Exception {
+		return clientiService.getListaIndirizziByIdCliente(id);
+	}
+
+	@GetMapping("/{id}/fatture")
+	public List<Fattura> listaFatture(@PathVariable UUID id) throws Exception {
+		return clientiService.getListaFattureByIdCliente(id);
 	}
 
 	@DeleteMapping("/{id}")

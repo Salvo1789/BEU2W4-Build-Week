@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 
 import epicode.bw5.entities.Cliente;
 import epicode.bw5.entities.Indirizzo;
+import epicode.bw5.entities.payloads.AssegnaIndirizzoPayload;
 import epicode.bw5.entities.payloads.ModificaIndirizzoPayload;
+import epicode.bw5.exceptions.BadRequestException;
 import epicode.bw5.exceptions.NotFoundException;
 import epicode.bw5.repositories.IndirizziRepository;
 
@@ -46,6 +48,24 @@ public class IndirizziService {
 		found.setLocalita(u.getLocalita());
 		found.setCap(u.getCap());
 		found.setComune(u.getComune());
+		found.setCliente(cliente);
+		return indirizziRepo.save(found);
+
+	}
+
+	public Indirizzo assegnaCliente(UUID id, AssegnaIndirizzoPayload u) {
+
+		Indirizzo found = this.findById(id);
+		Cliente cliente = clientiService.findById(u.getIdCliente());
+		if (cliente.getListaIndirizzi().size() == 2) {
+			throw new BadRequestException("Il cliente non può avere più di 2 indirizzi!");
+		}
+		found.setId(id);
+		found.setVia(found.getVia());
+		found.setCivico(found.getCivico());
+		found.setLocalita(found.getLocalita());
+		found.setCap(found.getCap());
+		found.setComune(found.getComune());
 		found.setCliente(cliente);
 		return indirizziRepo.save(found);
 

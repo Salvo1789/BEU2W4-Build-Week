@@ -1,5 +1,6 @@
 package epicode.bw5.services;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import epicode.bw5.entities.Cliente;
+import epicode.bw5.entities.Fattura;
+import epicode.bw5.entities.Indirizzo;
 import epicode.bw5.entities.payloads.ModificaClientePayload;
 import epicode.bw5.exceptions.BadRequestException;
 import epicode.bw5.exceptions.NotFoundException;
@@ -75,6 +78,14 @@ public class ClientiService {
 		Cliente found = this.findById(id);
 		clientiRepo.delete(found);
 
+	}
+
+	public List<Indirizzo> getListaIndirizziByIdCliente(UUID idCliente) {
+		return this.findById(idCliente).getListaIndirizzi();
+	}
+
+	public List<Fattura> getListaFattureByIdCliente(UUID idCliente) {
+		return this.findById(idCliente).getListaFatture();
 	}
 
 }

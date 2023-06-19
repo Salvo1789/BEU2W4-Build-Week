@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import epicode.bw5.entities.Indirizzo;
+import epicode.bw5.entities.payloads.AssegnaIndirizzoPayload;
 import epicode.bw5.entities.payloads.ModificaIndirizzoPayload;
 import epicode.bw5.services.IndirizziService;
 
@@ -41,6 +42,11 @@ public class IndirizziController {
 	@PutMapping("/{id}")
 	public Indirizzo getByIdAndUpdate(@PathVariable UUID id, @RequestBody ModificaIndirizzoPayload body) {
 		return indirizziService.findByIdAndUpdate(id, body);
+	}
+
+	@PutMapping("/{id}/assegna-cliente")
+	public Indirizzo AssegnaCliente(@PathVariable UUID id, @RequestBody AssegnaIndirizzoPayload body) {
+		return indirizziService.assegnaCliente(id, body);
 	}
 
 	@GetMapping("/{id}")
