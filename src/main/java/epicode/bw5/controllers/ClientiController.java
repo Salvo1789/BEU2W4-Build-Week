@@ -39,9 +39,9 @@ public class ClientiController {
 			@RequestParam(defaultValue = "0") long fatturato,
 			@RequestParam(required = false) Optional<LocalDate> dataInserimento,
 			@RequestParam(required = false) Optional<LocalDate> dataUltimoContatto,
-			@RequestParam(required = false) Optional<String> nomeCliente) {
+			@RequestParam(defaultValue = "") String nomeCliente) {
 		return clientiService.find(page, size, sortBy, fatturato, dataInserimento.orElse(null),
-				dataUltimoContatto.orElse(null), nomeCliente.orElse(null));
+				dataUltimoContatto.orElse(null), nomeCliente);
 	}
 
 	@PostMapping("")

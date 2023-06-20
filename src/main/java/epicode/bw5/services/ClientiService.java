@@ -46,7 +46,7 @@ public class ClientiService {
 			return clientiRepo.findByDataInserimento(dataInserimento, pageable);
 		} else if (dataUltimoContatto != null) {
 			return clientiRepo.findByDataUltimoContatto(dataUltimoContatto, pageable);
-		} else if (!nomeCliente.equals(null)) {
+		} else if (!nomeCliente.equals("")) {
 			return clientiRepo.findByRagioneSocialeContaining(nomeCliente, pageable);
 		} else {
 			return clientiRepo.findAll(pageable);
