@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import epicode.bw5.entities.Fattura;
+import epicode.bw5.entities.StatoFattura;
 import epicode.bw5.entities.payloads.AssegnaFatturaPayload;
 import epicode.bw5.entities.payloads.ModificaFatturaPayload;
 import epicode.bw5.entities.payloads.NuovaFatturaPayload;
@@ -76,4 +77,10 @@ public class FattureController {
 
 	}
 
+	@GetMapping("/{stato}")
+	@PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+	public List<Fattura> findByStato(@PathVariable StatoFattura stato) {
+		return fattureService.findByStato(stato);
+
+	}
 }

@@ -29,6 +29,7 @@ public class Fattura {
 	private int anno;
 	private LocalDate data;
 	private BigDecimal importo;
+	private StatoFattura stato;
 	@ManyToOne
 	@JsonBackReference
 	private Cliente cliente;
@@ -40,5 +41,6 @@ public class Fattura {
 		this.data = data;
 		this.importo = importo;
 		this.cliente = cliente;
+		this.stato = StatoFattura.DA_RISCUOTERE;
 	}
 }

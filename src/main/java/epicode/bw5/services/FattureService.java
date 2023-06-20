@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import epicode.bw5.entities.Cliente;
 import epicode.bw5.entities.Fattura;
+import epicode.bw5.entities.StatoFattura;
 import epicode.bw5.entities.payloads.AssegnaFatturaPayload;
 import epicode.bw5.entities.payloads.ModificaFatturaPayload;
 import epicode.bw5.entities.payloads.NuovaFatturaPayload;
@@ -87,6 +88,11 @@ public class FattureService {
 
 		Cliente cliente = clientiService.findByRagioneSociale(nomeCliente);
 		return cliente.getListaFatture();
+	}
+
+	public List<Fattura> findByStato(StatoFattura stato) {
+
+		return fattureRepo.findByStato(stato);
 	}
 
 }
