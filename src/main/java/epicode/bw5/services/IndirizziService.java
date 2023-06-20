@@ -42,6 +42,9 @@ public class IndirizziService {
 	public Indirizzo findByIdAndUpdate(UUID id, ModificaIndirizzoPayload u) {
 		Indirizzo found = this.findById(id);
 		Cliente cliente = clientiService.findById(u.getIdCliente());
+		if (cliente.getListaIndirizzi().size() == 2) {
+			throw new BadRequestException("Il cliente non può avere più di 2 indirizzi!");
+		}
 		found.setId(id);
 		found.setVia(u.getVia());
 		found.setCivico(u.getCivico());
