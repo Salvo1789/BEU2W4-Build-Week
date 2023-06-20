@@ -18,7 +18,7 @@ public class ModificaIndirizzoPayload {
 	@NotNull(message = "Il cap è abbligatorio")
 	private int cap;
 	@NotNull(message = "Il comune è abbligatorio")
-	private String comune;
+	private String nomeComune;
 	@NotNull(message = "L'id del cliente è abbligatorio")
 	private UUID idCliente;
 }

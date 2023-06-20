@@ -26,6 +26,8 @@ public class Indirizzo {
 	private String civico;
 	private String localita;
 	private int cap;
+	@ManyToOne
+	@JsonBackReference
 	private Comune comune;
 	@ManyToOne
 	@JsonBackReference

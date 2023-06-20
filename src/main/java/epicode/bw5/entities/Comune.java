@@ -1,8 +1,14 @@
 package epicode.bw5.entities;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,15 +19,19 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "comuni")
+@IdClass(IdComune.class)
 public class Comune {
 
 	@Id
-	private String codProvincia;
+	public String codProvincia;
 	@Id
-	private String progressivoComune;
+	public String progressivoComune;
 	private String nome;
 	@ManyToOne
 	private Provincia provincia;
+	@OneToMany(mappedBy = "comune")
+	@JsonIgnore
+	private List<Indirizzo> elencoIndirizzi;
 
 	public Comune(String codProvincia, String progressivoComune, String nome, Provincia provincia) {
 		super();
