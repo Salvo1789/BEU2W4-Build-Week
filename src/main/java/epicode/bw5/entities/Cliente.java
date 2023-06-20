@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -40,8 +42,10 @@ public class Cliente {
 	private String cognomeContatto;
 	private String telefonoContatto;
 	@OneToMany(mappedBy = "cliente")
+	@JsonManagedReference
 	private List<Fattura> listaFatture;
 	@OneToMany(mappedBy = "cliente")
+	@JsonManagedReference
 	private List<Indirizzo> listaIndirizzi;
 
 	public Cliente(String ragioneSociale, TipoCliente tipo, String partitaIva, String email, LocalDate dataInserimento,

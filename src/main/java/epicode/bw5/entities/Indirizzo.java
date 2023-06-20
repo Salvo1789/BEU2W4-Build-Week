@@ -2,6 +2,8 @@ package epicode.bw5.entities;
 
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -26,6 +28,7 @@ public class Indirizzo {
 	private int cap;
 	private String comune;
 	@ManyToOne
+	@JsonBackReference
 	private Cliente cliente;
 
 	public Indirizzo(String via, String civico, String localita, int cap, String comune, Cliente cliente) {

@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -28,6 +30,7 @@ public class Fattura {
 	private LocalDate data;
 	private BigDecimal importo;
 	@ManyToOne
+	@JsonBackReference
 	private Cliente cliente;
 
 	public Fattura(int numero, int anno, LocalDate data, BigDecimal importo, Cliente cliente) {
