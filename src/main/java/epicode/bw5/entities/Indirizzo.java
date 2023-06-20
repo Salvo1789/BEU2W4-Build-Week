@@ -26,12 +26,14 @@ public class Indirizzo {
 	private String civico;
 	private String localita;
 	private int cap;
-	private String comune;
+	@ManyToOne
+	@JsonBackReference
+	private Comune comune;
 	@ManyToOne
 	@JsonBackReference
 	private Cliente cliente;
 
-	public Indirizzo(String via, String civico, String localita, int cap, String comune, Cliente cliente) {
+	public Indirizzo(String via, String civico, String localita, int cap, Comune comune, Cliente cliente) {
 		super();
 		this.via = via;
 		this.civico = civico;
