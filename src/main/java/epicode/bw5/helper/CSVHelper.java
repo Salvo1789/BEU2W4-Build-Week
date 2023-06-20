@@ -30,23 +30,21 @@ public class CSVHelper {
 
 	public static List<Comune> csvToComuni(InputStream is) {
 		try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-				CSVParser csvParser = new CSVParser(fileReader,
-						CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());) {
+				CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT.withDelimiter(';').withTrim());) {
 
-			List<Comune> comuni = new ArrayList<Comune>();
+			List<Comune> comuni = new ArrayList<>();
 
-			Iterable<CSVRecord> csvRecords = csvParser.getRecords();
+			List<CSVRecord> csvRecords = csvParser.getRecords();
 
-			for (CSVRecord csvRecord : csvRecords) {
-				Comune comune = new Comune(csvRecord.get("Codice Provincia (Storico)(1)"),
-						csvRecord.get("Progressivo del Comune (2)"), csvRecord.get("Denominazione in italiano"), null);
-
+			for (int i = 1; i < csvRecords.size(); i++) {
+				CSVRecord csvRecord = csvRecords.get(i);
+				Comune comune = new Comune(csvRecord.get(0), csvRecord.get(1), csvRecord.get(2), null);
 				comuni.add(comune);
 			}
 
 			return comuni;
 		} catch (IOException e) {
-			throw new RuntimeException("fail to parse CSV file: " + e.getMessage());
+			throw new RuntimeException("Fail to parse CSV file: " + e.getMessage());
 		}
 	}
 }
