@@ -38,6 +38,8 @@ public class SecurityConfig {
 
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/indirizzi/**").authenticated());
 
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/comuni/**").authenticated());
+
 		http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 		http.addFilterBefore(corsFilter, JWTAuthFilter.class);
 
