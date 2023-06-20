@@ -88,4 +88,9 @@ public class ClientiService {
 		return this.findById(idCliente).getListaFatture();
 	}
 
+	public Cliente findByRagioneSociale(String ragioneSociale) throws NotFoundException {
+		return clientiRepo.findByRagioneSociale(ragioneSociale).orElseThrow(
+				() -> new NotFoundException("Nessun cliente con ragione sociale: " + ragioneSociale + " trovato"));
+	}
+
 }

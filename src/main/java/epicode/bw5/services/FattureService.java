@@ -1,5 +1,6 @@
 package epicode.bw5.services;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,4 +82,11 @@ public class FattureService {
 		fattureRepo.delete(found);
 
 	}
+
+	public List<Fattura> findByNomeCliente(String nomeCliente) {
+
+		Cliente cliente = clientiService.findByRagioneSociale(nomeCliente);
+		return cliente.getListaFatture();
+	}
+
 }

@@ -11,4 +11,5 @@ import epicode.bw5.entities.Fattura;
 @Repository
 public interface FattureRepository extends JpaRepository<Fattura, UUID> {
 	Optional<Fattura> findByNumero(int numero);
+
 }

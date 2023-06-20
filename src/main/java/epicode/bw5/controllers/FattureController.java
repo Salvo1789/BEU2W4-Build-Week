@@ -1,5 +1,6 @@
 package epicode.bw5.controllers;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,4 +68,12 @@ public class FattureController {
 	public void deleteFattura(@PathVariable UUID id) {
 		fattureService.findByIdAndDelete(id);
 	}
+
+	@GetMapping("/{nomeCliente}")
+	@PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+	public List<Fattura> findByNomeCliente(@PathVariable String nomeCliente) {
+		return fattureService.findByNomeCliente(nomeCliente);
+
+	}
+
 }

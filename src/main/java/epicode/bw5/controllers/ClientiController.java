@@ -74,4 +74,5 @@ public class ClientiController {
 	public void deleteCliente(@PathVariable UUID id) {
 		clientiService.findByIdAndDelete(id);
 	}
+
 }
