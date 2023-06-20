@@ -1,5 +1,6 @@
 package epicode.bw5.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,17 +28,34 @@ public class FattureService {
 	@Autowired
 	private ClientiService clientiService;
 
-	public Page<Fattura> find(int page, int size, String sortBy, StatoFattura stato) {
+	public Page<Fattura> find(int page, int size, String sortBy, StatoFattura stato, LocalDate data, int anno,
+			int importo1, int importo2) {
 		if (size < 0)
 			size = 10;
 		if (size > 100)
 			size = 100;
+
+		if (importo1 < 0)
+			importo1 = 0;
+		if (importo1 > 1000000)
+			importo1 = 1000000;
+		if (importo2 > 1000000)
+			importo2 = 1000000;
+		if (importo2 < 10)
+			importo2 = 1000;
 		Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
 
-		if (stato == null) {
-			return fattureRepo.findAll(pageable);
-		} else {
+		if (stato != null) {
 			return fattureRepo.findByStato(stato, pageable);
+		} else if (data != null) {
+			return fattureRepo.findByData(data, pageable);
+
+		} else if (anno > 0) {
+			return fattureRepo.findByAnno(anno, pageable);
+		} else if (importo1 > 0 && importo2 < 1000000) {
+			return fattureRepo.findByImportoBetween(importo1, importo2, pageable);
+		} else {
+			return fattureRepo.findAll(pageable);
 		}
 
 	}

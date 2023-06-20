@@ -1,5 +1,6 @@
 package epicode.bw5.controllers;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -36,8 +37,10 @@ public class FattureController {
 	@PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
 	public Page<Fattura> getFatture(@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sortBy,
-			@RequestParam(required = false) Optional<StatoFattura> stato) {
-		return fattureService.find(page, size, sortBy, stato.orElse(null));
+			@RequestParam(required = false) Optional<StatoFattura> stato,
+			@RequestParam(required = false) Optional<LocalDate> data, @RequestParam(defaultValue = "0") int anno,
+			@RequestParam(defaultValue = "0") int importo1, @RequestParam(defaultValue = "1000000") int importo2) {
+		return fattureService.find(page, size, sortBy, stato.orElse(null), data.orElse(null), anno, importo1, importo2);
 	}
 
 	@PostMapping("")

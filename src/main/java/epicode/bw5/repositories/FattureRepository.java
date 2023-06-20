@@ -1,11 +1,13 @@
 package epicode.bw5.repositories;
 
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import epicode.bw5.entities.Fattura;
@@ -17,4 +19,10 @@ public interface FattureRepository extends JpaRepository<Fattura, UUID> {
 
 	Page<Fattura> findByStato(StatoFattura stato, Pageable pageable);
 
+	Page<Fattura> findByData(LocalDate data, Pageable pageable);
+
+	Page<Fattura> findByAnno(int anno, Pageable pageable);
+
+	@Query("SELECT f FROM Fattura f WHERE f.importo >= :importo1 AND f.importo <= :importo2")
+	Page<Fattura> findByImportoBetween(int importo1, int importo2, Pageable pageable);
 }
