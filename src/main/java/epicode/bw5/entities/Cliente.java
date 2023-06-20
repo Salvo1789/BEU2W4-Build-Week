@@ -34,7 +34,7 @@ public class Cliente {
 	private String email;
 	private LocalDate dataInserimento;
 	private LocalDate dataUltimoContatto;
-	private Long fatturatoAnnuale;
+	private long fatturatoAnnuale;
 	private String pec;
 	private String telefono;
 	private String emailContatto;
@@ -49,7 +49,7 @@ public class Cliente {
 	private List<Indirizzo> listaIndirizzi;
 
 	public Cliente(String ragioneSociale, TipoCliente tipo, String partitaIva, String email, LocalDate dataInserimento,
-			LocalDate dataUltimoContatto, Long fatturatoAnnuale, String pec, String telefono, String emailContatto,
+			LocalDate dataUltimoContatto, long fatturatoAnnuale, String pec, String telefono, String emailContatto,
 			String nomeContatto, String cognomeContatto, String telefonoContatto) {
 		super();
 		this.ragioneSociale = ragioneSociale;

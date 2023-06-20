@@ -1,6 +1,8 @@
 package epicode.bw5.controllers;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +35,13 @@ public class ClientiController {
 	@GetMapping("")
 	@PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
 	public Page<Cliente> getClienti(@RequestParam(defaultValue = "0") int page,
-			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sortBy) {
-		return clientiService.find(page, size, sortBy);
+			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sortBy,
+			@RequestParam(defaultValue = "0") long fatturato,
+			@RequestParam(required = false) Optional<LocalDate> dataInserimento,
+			@RequestParam(required = false) Optional<LocalDate> dataUltimoContatto,
+			@RequestParam(required = false) Optional<String> nomeCliente) {
+		return clientiService.find(page, size, sortBy, fatturato, dataInserimento.orElse(null),
+				dataUltimoContatto.orElse(null), nomeCliente.orElse(null));
 	}
 
 	@PostMapping("")

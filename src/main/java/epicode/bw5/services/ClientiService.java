@@ -1,5 +1,6 @@
 package epicode.bw5.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,14 +29,28 @@ public class ClientiService {
 
 	}
 
-	public Page<Cliente> find(int page, int size, String sortBy) {
+	public Page<Cliente> find(int page, int size, String sortBy, long fatturato, LocalDate dataInserimento,
+			LocalDate dataUltimoContatto, String nomeCliente) {
 		if (size < 0)
 			size = 10;
 		if (size > 100)
 			size = 100;
+		if (fatturato < 0)
+			fatturato = 0;
+		if (fatturato > 1000000)
+			fatturato = 1000000;
 		Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
-
-		return clientiRepo.findAll(pageable);
+		if (fatturato > 0) {
+			return clientiRepo.findByFatturatoAnnuale(fatturato, pageable);
+		} else if (dataInserimento != null) {
+			return clientiRepo.findByDataInserimento(dataInserimento, pageable);
+		} else if (dataUltimoContatto != null) {
+			return clientiRepo.findByDataUltimoContatto(dataUltimoContatto, pageable);
+		} else if (!nomeCliente.equals(null)) {
+			return clientiRepo.findByRagioneSocialeContaining(nomeCliente, pageable);
+		} else {
+			return clientiRepo.findAll(pageable);
+		}
 	}
 
 	public Cliente findByIdAndUpdate(UUID id, ModificaClientePayload u) {
