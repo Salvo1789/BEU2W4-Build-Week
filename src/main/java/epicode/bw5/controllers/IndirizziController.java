@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,33 +29,39 @@ public class IndirizziController {
 	IndirizziService indirizziService;
 
 	@GetMapping("")
+	@PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
 	public Page<Indirizzo> getIndirizzo(@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sortBy) {
 		return indirizziService.find(page, size, sortBy);
 	}
 
 	@PostMapping("")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Indirizzo createIndirizzo(@RequestBody ModificaIndirizzoPayload body) {
 		return indirizziService.create(body);
 	}
 
 	@PutMapping("/{id}")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public Indirizzo getByIdAndUpdate(@PathVariable UUID id, @RequestBody ModificaIndirizzoPayload body) {
 		return indirizziService.findByIdAndUpdate(id, body);
 	}
 
 	@PutMapping("/{id}/assegna-cliente")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public Indirizzo AssegnaCliente(@PathVariable UUID id, @RequestBody AssegnaIndirizzoPayload body) {
 		return indirizziService.assegnaCliente(id, body);
 	}
 
 	@GetMapping("/{id}")
+	@PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
 	public Indirizzo getById(@PathVariable UUID id) throws Exception {
 		return indirizziService.findById(id);
 	}
 
 	@DeleteMapping("/{id}")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteIndirizzo(@PathVariable UUID id) {
 		indirizziService.findByIdAndDelete(id);
