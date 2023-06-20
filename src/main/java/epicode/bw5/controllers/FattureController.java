@@ -1,6 +1,7 @@
 package epicode.bw5.controllers;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +35,9 @@ public class FattureController {
 	@GetMapping("")
 	@PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
 	public Page<Fattura> getFatture(@RequestParam(defaultValue = "0") int page,
-			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sortBy) {
-		return fattureService.find(page, size, sortBy);
+			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sortBy,
+			@RequestParam(required = false) Optional<StatoFattura> stato) {
+		return fattureService.find(page, size, sortBy, stato.orElse(null));
 	}
 
 	@PostMapping("")
@@ -77,10 +79,4 @@ public class FattureController {
 
 	}
 
-	@GetMapping("/{stato}")
-	@PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
-	public List<Fattura> findByStato(@PathVariable StatoFattura stato) {
-		return fattureService.findByStato(stato);
-
-	}
 }

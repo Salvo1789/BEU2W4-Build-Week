@@ -27,14 +27,19 @@ public class FattureService {
 	@Autowired
 	private ClientiService clientiService;
 
-	public Page<Fattura> find(int page, int size, String sortBy) {
+	public Page<Fattura> find(int page, int size, String sortBy, StatoFattura stato) {
 		if (size < 0)
 			size = 10;
 		if (size > 100)
 			size = 100;
 		Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
 
-		return fattureRepo.findAll(pageable);
+		if (stato == null) {
+			return fattureRepo.findAll(pageable);
+		} else {
+			return fattureRepo.findByStato(stato, pageable);
+		}
+
 	}
 
 	public Fattura findById(UUID id) throws NotFoundException {
@@ -88,11 +93,6 @@ public class FattureService {
 
 		Cliente cliente = clientiService.findByRagioneSociale(nomeCliente);
 		return cliente.getListaFatture();
-	}
-
-	public List<Fattura> findByStato(StatoFattura stato) {
-
-		return fattureRepo.findByStato(stato);
 	}
 
 }

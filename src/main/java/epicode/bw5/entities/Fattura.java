@@ -7,6 +7,8 @@ import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
@@ -29,6 +31,8 @@ public class Fattura {
 	private int anno;
 	private LocalDate data;
 	private BigDecimal importo;
+	@Enumerated(EnumType.STRING)
+
 	private StatoFattura stato;
 	@ManyToOne
 	@JsonBackReference
