@@ -38,7 +38,7 @@ public class ClientiRunner implements CommandLineRunner {
 
 					String email = faker.internet().emailAddress();
 					String pec = faker.internet().emailAddress();
-					String psw = faker.internet().password();
+
 					String telefono = String.valueOf(faker.number().randomNumber(10, true));
 					String emailContatto = faker.internet().emailAddress();
 					String nomeContatto = faker.name().firstName();
