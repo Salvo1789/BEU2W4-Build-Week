@@ -44,11 +44,13 @@ public class CSVHelper {
 				String codProvincia = csvRecord.get(0);
 				String progressivoComune = csvRecord.get(1);
 				String nomeComune = csvRecord.get(2);
+				String provincia = csvRecord.get(3);
 
-				Provincia provincia = province.stream().filter(p -> p.getSigla().equals(codProvincia)).findFirst()
-						.orElse(null);
+//              Provincia provincia = province.stream().filter(p -> p.getSigla().equals(codProvincia)).findFirst()
+//                      .orElse(null);
 
-				Comune comune = new Comune(codProvincia, progressivoComune, nomeComune, provincia);
+				Comune comune = new Comune(codProvincia, progressivoComune, nomeComune,
+						province.stream().filter(p -> p.getNome().equals(provincia)).findFirst().orElse(null));
 				comuni.add(comune);
 			}
 
