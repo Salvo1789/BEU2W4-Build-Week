@@ -13,11 +13,14 @@ import org.apache.commons.csv.CSVRecord;
 import org.springframework.web.multipart.MultipartFile;
 
 import epicode.bw5.entities.Comune;
+import epicode.bw5.entities.Provincia;
 
 public class CSVHelper {
 	public static String TYPE = "text/csv";
 	static String[] HEADERs = { "Codice Provincia (Storico)(1)", "Progressivo del Comune (2)",
 			"Denominazione in italiano" };
+
+	static String[] HEADERs2 = { "Sigla", "Provincia", "Regione" };
 
 	public static boolean hasCSVFormat(MultipartFile file) {
 
@@ -28,7 +31,7 @@ public class CSVHelper {
 		return true;
 	}
 
-	public static List<Comune> csvToComuni(InputStream is) {
+	public static List<Comune> csvToComuni(InputStream is, List<Provincia> province) {
 		try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
 				CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT.withDelimiter(';').withTrim());) {
 
@@ -38,11 +41,38 @@ public class CSVHelper {
 
 			for (int i = 1; i < csvRecords.size(); i++) {
 				CSVRecord csvRecord = csvRecords.get(i);
-				Comune comune = new Comune(csvRecord.get(0), csvRecord.get(1), csvRecord.get(2), null);
+				String codProvincia = csvRecord.get(0);
+				String progressivoComune = csvRecord.get(1);
+				String nomeComune = csvRecord.get(2);
+
+				Provincia provincia = province.stream().filter(p -> p.getSigla().equals(codProvincia)).findFirst()
+						.orElse(null);
+
+				Comune comune = new Comune(codProvincia, progressivoComune, nomeComune, provincia);
 				comuni.add(comune);
 			}
 
 			return comuni;
+		} catch (IOException e) {
+			throw new RuntimeException("Failed to parse CSV file: " + e.getMessage());
+		}
+	}
+
+	public static List<Provincia> csvToProvince(InputStream is) {
+		try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+				CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT.withDelimiter(';').withTrim());) {
+
+			List<Provincia> province = new ArrayList<>();
+
+			List<CSVRecord> csvRecords = csvParser.getRecords();
+
+			for (int i = 1; i < csvRecords.size(); i++) {
+				CSVRecord csvRecord = csvRecords.get(i);
+				Provincia provincia = new Provincia(csvRecord.get(0), csvRecord.get(1), csvRecord.get(2));
+				province.add(provincia);
+			}
+
+			return province;
 		} catch (IOException e) {
 			throw new RuntimeException("Fail to parse CSV file: " + e.getMessage());
 		}

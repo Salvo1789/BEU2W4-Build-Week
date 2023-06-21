@@ -18,6 +18,9 @@ public class ComuniService {
 	@Autowired
 	ComuniRepository comuniRepo;
 
+	@Autowired
+	ProvinceService provinceService;
+
 	public Comune findByNome(String nome) throws NotFoundException {
 		return comuniRepo.findByNome(nome)
 				.orElseThrow(() -> new NotFoundException("Nessun comune con nome: " + nome + " trovato"));
@@ -25,7 +28,7 @@ public class ComuniService {
 
 	public void save(MultipartFile file) {
 		try {
-			List<Comune> comuni = CSVHelper.csvToComuni(file.getInputStream());
+			List<Comune> comuni = CSVHelper.csvToComuni(file.getInputStream(), provinceService.getAllProvince());
 			comuniRepo.saveAll(comuni);
 		} catch (IOException e) {
 			throw new RuntimeException("fail to store csv data: " + e.getMessage());
