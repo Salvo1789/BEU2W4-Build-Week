@@ -50,7 +50,7 @@ public class CSVHelper {
 //                      .orElse(null);
 
 				Comune comune = new Comune(codProvincia, progressivoComune, nomeComune,
-						province.stream().filter(p -> p.getNome().equals(provincia)).findFirst().orElse(null));
+						province.stream().filter(p -> p.getNome().contains(provincia)).findFirst().orElse(null));
 				comuni.add(comune);
 			}
 
