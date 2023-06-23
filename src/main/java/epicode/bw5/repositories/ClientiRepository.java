@@ -26,4 +26,5 @@ public interface ClientiRepository extends JpaRepository<Cliente, UUID> {
 	Page<Cliente> findByDataUltimoContatto(LocalDate dataUltimoContatto, Pageable pageable);
 
 	Page<Cliente> findByRagioneSocialeContaining(String nomeCliente, Pageable pageable);
+
 }

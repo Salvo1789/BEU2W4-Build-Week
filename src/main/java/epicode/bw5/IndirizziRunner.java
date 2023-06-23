@@ -44,16 +44,16 @@ public class IndirizziRunner implements CommandLineRunner {
 					int randomIndex = faker.random().nextInt(clientiDB.size());
 					Cliente cliente = clientiDB.get(randomIndex);
 
-					// Conta il numero di volte che il cliente è stato utilizzato
-					int count = 0;
-					for (Indirizzo indirizzo : indirizziDB) {
-						if (indirizzo.getCliente() == cliente) {
-							count++;
-						}
-					}
+//					// Conta il numero di volte che il cliente è stato utilizzato
+//					int count = 0;
+//					for (Indirizzo indirizzo : indirizziDB) {
+//						if (indirizzo.getCliente() == cliente) {
+//							count++;
+//						}
+//					}
 
 					// Verifica se il cliente è stato utilizzato meno di 2 volte
-					if (count < 2) {
+					if (cliente.getListaIndirizzi().size() < 2) {
 						String via = faker.address().fullAddress();
 						String civico = String.valueOf(faker.number().randomNumber(3, true));
 						String localita = faker.address().streetName();
