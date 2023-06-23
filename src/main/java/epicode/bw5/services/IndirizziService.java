@@ -46,9 +46,9 @@ public class IndirizziService {
 		Indirizzo found = this.findById(id);
 		Cliente cliente = clientiService.findById(u.getIdCliente());
 		Comune comune = comuniService.findByNome(u.getNomeComune());
-		if (cliente.getListaIndirizzi().size() == 2) {
-			throw new BadRequestException("Il cliente non può avere più di 2 indirizzi!");
-		}
+//		if (cliente.getListaIndirizzi().size() == 2) {
+//			throw new BadRequestException("Il cliente non può avere più di 2 indirizzi!");
+//		}
 		found.setId(id);
 		found.setVia(u.getVia());
 		found.setCivico(u.getCivico());
