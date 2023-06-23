@@ -24,5 +24,5 @@ public interface FattureRepository extends JpaRepository<Fattura, UUID> {
 	Page<Fattura> findByAnno(int anno, Pageable pageable);
 
 	@Query("SELECT f FROM Fattura f WHERE f.importo >= :importo1 AND f.importo <= :importo2")
-	Page<Fattura> findByImportoBetween(int importo1, int importo2, Pageable pageable);
+	Page<Fattura> findByImportoBetween(double importo1, double importo2, Pageable pageable);
 }

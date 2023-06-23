@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -29,7 +30,7 @@ public class FattureService {
 	private ClientiService clientiService;
 
 	public Page<Fattura> find(int page, int size, String sortBy, StatoFattura stato, LocalDate data, int anno,
-			int importo1, int importo2) {
+			double importo1, double importo2, String nomeCliente) {
 		if (size < 0)
 			size = 10;
 		if (size > 100)
@@ -54,6 +55,8 @@ public class FattureService {
 			return fattureRepo.findByAnno(anno, pageable);
 		} else if (importo1 > 0 && importo2 < 1000000) {
 			return fattureRepo.findByImportoBetween(importo1, importo2, pageable);
+		} else if (!nomeCliente.equals("")) {
+			return this.findByNomeCliente(nomeCliente, pageable);
 		} else {
 			return fattureRepo.findAll(pageable);
 		}
@@ -107,10 +110,12 @@ public class FattureService {
 
 	}
 
-	public List<Fattura> findByNomeCliente(String nomeCliente) {
-
+	public Page<Fattura> findByNomeCliente(String nomeCliente, Pageable pageable) {
 		Cliente cliente = clientiService.findByRagioneSociale(nomeCliente);
-		return cliente.getListaFatture();
+		List<Fattura> listaFatture = cliente.getListaFatture();
+		int start = (int) pageable.getOffset();
+		int end = Math.min((start + pageable.getPageSize()), listaFatture.size());
+		return new PageImpl<>(listaFatture.subList(start, end), pageable, listaFatture.size());
 	}
 
 }

@@ -1,7 +1,6 @@
 package epicode.bw5.controllers;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -39,8 +38,10 @@ public class FattureController {
 			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sortBy,
 			@RequestParam(required = false) Optional<StatoFattura> stato,
 			@RequestParam(required = false) Optional<LocalDate> data, @RequestParam(defaultValue = "0") int anno,
-			@RequestParam(defaultValue = "0") int importo1, @RequestParam(defaultValue = "1000000") int importo2) {
-		return fattureService.find(page, size, sortBy, stato.orElse(null), data.orElse(null), anno, importo1, importo2);
+			@RequestParam(defaultValue = "0") double importo1, @RequestParam(defaultValue = "1000000") double importo2,
+			@RequestParam(defaultValue = "") String nomeCliente) {
+		return fattureService.find(page, size, sortBy, stato.orElse(null), data.orElse(null), anno, importo1, importo2,
+				nomeCliente);
 	}
 
 	@PostMapping("")
@@ -73,13 +74,6 @@ public class FattureController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteFattura(@PathVariable UUID id) {
 		fattureService.findByIdAndDelete(id);
-	}
-
-	@GetMapping("/{nomeCliente}")
-	@PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
-	public List<Fattura> findByNomeCliente(@PathVariable String nomeCliente) {
-		return fattureService.findByNomeCliente(nomeCliente);
-
 	}
 
 }
