@@ -2,6 +2,8 @@ package epicode.bw5.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -23,6 +25,7 @@ public class Provincia {
 	private String regione;
 
 	@OneToMany(mappedBy = "provincia")
+	@JsonIgnore
 	private List<Comune> elencoComuni;
 
 	public Provincia(String sigla, String nome, String regione) {
