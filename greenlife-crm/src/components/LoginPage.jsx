@@ -1,4 +1,4 @@
-import { Container, Form, Button } from "react-bootstrap"
+import { Form, Button } from "react-bootstrap"
 import { Link } from 'react-router-dom'
 
 const LoginPage = () => {
@@ -6,8 +6,8 @@ const LoginPage = () => {
     
 
     return(
-    <Container id="LoginContainer">
-        <Form id="LoginForm">
+    
+        <Form>
             <h2>Login</h2>
             <Form.Group controlId="formEmail" id="FormEmail">
                 <Form.Label>Email</Form.Label>
@@ -35,11 +35,11 @@ const LoginPage = () => {
             <Button type="submit">
                 LOGIN
             </Button>
-            {/* <Link to="#">
+            <Link to="/register">
                 Nuovo utente? Clicca qui per registrarti.
-            </Link> */}
+            </Link>
         </Form>
-    </Container>
+    
     ) 
 }
 
