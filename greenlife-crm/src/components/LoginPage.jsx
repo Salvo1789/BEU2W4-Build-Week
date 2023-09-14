@@ -11,7 +11,7 @@ const LoginPage = () => {
     const navigate = useNavigate();
     
     const token = useSelector(state => state.auth.token);
-    const userCurrent = useSelector(state => state.auth.userData)
+    // const userCurrent = useSelector(state => state.auth.userData)
 
     useEffect(() => {
         if(token){
@@ -20,19 +20,20 @@ const LoginPage = () => {
         
       }, [token]);
   
-      useEffect(() => {
-        if(userCurrent){
-            console.log(userCurrent);
-        navigate("/menu");
-        }
+    //   useEffect(() => {
+    //     if(userCurrent){
+    //         console.log(userCurrent);
+    //     navigate("/menu");
+    //     }
         
-      }, [userCurrent]);
+    //   }, [userCurrent]);
 
       const handleSubmit = (e) => {
         e.preventDefault();
         console.log("Submitted:", { email, password });
         const body = { email, password };
         dispatch(loginAction(JSON.stringify(body)));
+        navigate("/menu");
       };
 
     return(

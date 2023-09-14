@@ -1,4 +1,4 @@
-import { GET_CLIENTI } from "../actions";
+import { GET_FATTURE } from "../actions";
 
 const initialState = {
     content: null
@@ -6,7 +6,7 @@ const initialState = {
 
 const clientiReducer = (state = initialState, action) => {
     switch (action.type) {
-      case GET_CLIENTI:
+      case GET_FATTURE:
         return {
           ...state,
           content: action.payload,

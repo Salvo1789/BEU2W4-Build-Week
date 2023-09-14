@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import epicode.bw5.entities.User;
 import epicode.bw5.entities.payloads.ModificaUserPayload;
 import epicode.bw5.entities.payloads.UserRegistrationPayload;
+import epicode.bw5.exceptions.NotFoundException;
 import epicode.bw5.services.UsersService;
 
 @RestController
@@ -27,6 +29,13 @@ import epicode.bw5.services.UsersService;
 public class UsersController {
 	@Autowired
 	UsersService usersService;
+
+	@GetMapping("/me")
+	public User getCurrentUser(Authentication authentication) throws NotFoundException {
+		User userDetails = (User) authentication.getPrincipal();
+		UUID userId = userDetails.getId();
+		return usersService.findById(userId);
+	}
 
 	@GetMapping("")
 	@PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
