@@ -23,7 +23,6 @@ const InvoicesList = () => {
               <th scope="col">Data</th>
               <th scope="col">Importo</th>
               <th scope="col">Stato</th>
-              <th scope="col">Cliente</th>
             </tr>
           </thead>
           <tbody>
@@ -39,9 +38,6 @@ const InvoicesList = () => {
           <td>{invoice.importo}</td>
           <td>
             {invoice.stato}
-          </td>
-          <td>
-            {invoice.cliente}
           </td>
           </tr>
       </>
