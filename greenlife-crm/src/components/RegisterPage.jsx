@@ -1,4 +1,4 @@
-import { Button, Form } from "react-bootstrap";
+import { Container, Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { registerAction } from "../redux/actions";
@@ -23,6 +23,7 @@ const RegisterPage = () => {
   };
   
     return(
+      <Container>
     <Form onSubmit={handleSubmit}>
       <h2>Register</h2>
       <Form.Group controlId="formName">
@@ -94,6 +95,7 @@ const RegisterPage = () => {
         REGISTER
       </Button>
     </Form>
+    </Container>
     )
 };
 

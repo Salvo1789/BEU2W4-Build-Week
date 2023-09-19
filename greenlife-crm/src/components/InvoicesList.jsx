@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getAllInvoicesAction } from "../redux/actions";
+import { Button, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const InvoicesList = () => {
   const invoices = useSelector((state) => state.fatture.content);
@@ -15,6 +17,7 @@ const InvoicesList = () => {
   }, []);
 
   return (
+    <Container>
     <table style={{ minWidth: "100%", border: "2px solid brown" }} class="table">
           <thead>
             <tr>
@@ -44,6 +47,10 @@ const InvoicesList = () => {
     ))}
     </tbody>
   </table>
+  <Link to="/menu " style={{marginTop: "2rem" }}>
+  <Button type="button"> Torna indietro</Button>
+  </Link>
+  </Container>
   );
 };
 

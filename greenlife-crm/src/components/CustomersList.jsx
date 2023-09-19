@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getAllCustomersAction } from "../redux/actions";
+import { Container, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const CustomersList = () => {
   const customers = useSelector((state) => state.clienti.content);
@@ -15,6 +17,7 @@ const CustomersList = () => {
   }, []);
 
   return (
+    <Container>
         <table style={{ border: "2px solid brown" }} class="table">
           <thead>
             <tr>
@@ -48,6 +51,10 @@ const CustomersList = () => {
     ))}
     </tbody>
   </table>
+  <Link to="/menu " style={{marginTop: "2rem" }}>
+  <Button type="button"> Torna indietro</Button>
+  </Link>
+  </Container>
   );
 };
 

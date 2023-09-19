@@ -1,19 +1,14 @@
-import { Row, Col, Card, Button} from 'react-bootstrap'
+import { Container, Row, Col, Card, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { useSelector } from "react-redux";
 
 const UserMenu = () => {
 
-  const userCurrent = useSelector(state => state.auth.userData)
+  // const userCurrent = useSelector(state => state.auth.userData)
 
     return (
       <>
-    {userCurrent ? (
-              <Link to="#" style={{ color: "white", background: " rgb(87, 45, 14)", textDecoration: "none", padding: "2rem", border: "solid", borderRadius: "5px" }}>Bentornato, {userCurrent.username}</Link>
-            
-            ) : (
-              <Link to="/login" style={{ color: "white", background: " rgb(87, 45, 14)", textDecoration: "none", padding: "2rem", border: "solid", borderRadius: "5px" }}>Login</Link>
-            )}
+    <Container>
       <Row>
     <Col>
       <Card style={{ width: "18rem" }}>
@@ -38,7 +33,7 @@ const UserMenu = () => {
       </Card>
     </Col>
   </Row>
-  
+  </Container>
   </>
     )
 };

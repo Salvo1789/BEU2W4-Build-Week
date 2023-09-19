@@ -1,4 +1,4 @@
-import { Form, Button } from "react-bootstrap"
+import { Container, Form, Button } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -11,7 +11,7 @@ const LoginPage = () => {
     const navigate = useNavigate();
     
     const token = useSelector(state => state.auth.token);
-    // const userCurrent = useSelector(state => state.auth.userData)
+    const userCurrent = useSelector(state => state.auth.userData)
 
     useEffect(() => {
         if(token){
@@ -20,24 +20,23 @@ const LoginPage = () => {
         
       }, [token]);
   
-    //   useEffect(() => {
-    //     if(userCurrent){
-    //         console.log(userCurrent);
-    //     navigate("/menu");
-    //     }
+      useEffect(() => {
+        if(userCurrent){
+            console.log(userCurrent);
+        navigate("/menu");
+        }
         
-    //   }, [userCurrent]);
+      }, [userCurrent]);
 
       const handleSubmit = (e) => {
         e.preventDefault();
         console.log("Submitted:", { email, password });
         const body = { email, password };
         dispatch(loginAction(JSON.stringify(body)));
-        navigate("/menu");
       };
 
     return(
-    
+        <Container>
         <Form onSubmit={handleSubmit}>
             <h2>Login</h2>
             <Form.Group controlId="formEmail" id="FormEmail">
@@ -74,7 +73,7 @@ const LoginPage = () => {
                 Nuovo utente? Clicca qui per registrarti.
             </Link>
         </Form>
-    
+        </Container>
     ) 
 }
 

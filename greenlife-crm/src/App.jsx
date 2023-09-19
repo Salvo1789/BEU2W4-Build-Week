@@ -6,13 +6,14 @@ import RegisterPage from './components/RegisterPage';
 import UserMenu from './components/UserMenu';
 import CustomersList from './components/CustomersList';
 import InvoicesList from './components/InvoicesList';
-
+import SiteNavbar from './components/SiteNavbar';
 
 
 function App() {
   return (
-    <Container>
+    
       <BrowserRouter>
+      <SiteNavbar />
       <Routes>
         <Route path="/" element={<LoginPage />}/>
         <Route path="/register" element={<RegisterPage />}/>
@@ -21,7 +22,7 @@ function App() {
         <Route path="/fatture" element={<InvoicesList />} />
       </Routes>
       </BrowserRouter>
-    </Container>
+    
   );
 }
 
