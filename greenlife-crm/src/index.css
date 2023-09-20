@@ -38,6 +38,10 @@ nav{
   text-decoration: none;
 }
 
+.dropdown-toggle {
+  margin-right: 1.7rem;
+}
+
 .dropdown-item {
   color: white;
   text-decoration: none;
