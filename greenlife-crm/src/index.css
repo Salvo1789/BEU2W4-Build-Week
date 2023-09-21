@@ -131,3 +131,14 @@ button {
   width: 25rem;
 }
 
+table {
+  min-width: 30%;
+  border: 2px solid brown;
+}
+
+@media print{
+  #invoiceDoc {
+    font-size: 2px;
+  }
+}
+

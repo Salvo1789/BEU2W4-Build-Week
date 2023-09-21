@@ -5,7 +5,7 @@ import { encryptTransform } from "redux-persist-transform-encrypt";
 import authReducer from '../reducers/authReducer';
 import clientiReducer from '../reducers/clientiReducer';
 import fattureReducer from '../reducers/fattureReducer';
-
+import fatturaReducer from '../reducers/fatturaReducer';
 import storage from "redux-persist/lib/storage";
 
 
@@ -22,7 +22,8 @@ const persistConfig = {
   const mainReducer = combineReducers({
     auth: authReducer,
     clienti: clientiReducer,
-    fatture: fattureReducer
+    fatture: fattureReducer,
+    fattura: fatturaReducer
   });
 
   const persistedReducer = persistReducer(persistConfig, mainReducer);

@@ -120,14 +120,20 @@ export const getCustomerAction = (id) => {
 }
 
 export const getInvoiceAction = (id) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     
 
     const endpoint = "http://localhost:3000/fatture/" + id;
-    
+    const token = getState().auth.token;
+
     console.log(endpoint);
     try {
-      const resp = await fetch(endpoint);
+      const resp = await fetch(endpoint, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        }
+      });
       if (resp.ok) {
         const invoiceData = await resp.json();
         dispatch({ type: GET_FATTURA, payload: invoiceData });

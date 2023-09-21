@@ -6,6 +6,7 @@ import RegisterPage from './components/RegisterPage';
 import UserMenu from './components/UserMenu';
 import CustomersList from './components/CustomersList';
 import InvoicesList from './components/InvoicesList';
+import InvoiceDetail from './components/InvoiceDetail';
 import SiteNavbar from './components/SiteNavbar';
 
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/menu" element={<UserMenu />} />
         <Route path="/clienti" element={<CustomersList />} />
         <Route path="/fatture" element={<InvoicesList />} />
+        <Route path="/fatture/:id" element={<InvoiceDetail />} />
       </Routes>
       </BrowserRouter>
     

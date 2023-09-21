@@ -3,21 +3,13 @@ import { useEffect } from "react";
 import { getAllInvoicesAction } from "../redux/actions";
 import { Button, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { jsPDF } from "jspdf";
+
 
 const InvoicesList = () => {
   const invoices = useSelector((state) => state.fatture.content);
   const dispatch = useDispatch();
 
-  const doc = new jsPDF('p', 'mm', [297, 210]);
   
-  
-  const invoice = document.getElementById("invoice");
-
-  const downloadPdf = async () => {
-    doc.setFontSize(1);
-    await doc.html(invoice).save("test.pdf");
-  };
 
   useEffect(() => {
     dispatch(getAllInvoicesAction());
@@ -38,23 +30,23 @@ const InvoicesList = () => {
             <th scope="col">Data</th>
             <th scope="col">Importo</th>
             <th scope="col">Stato</th>
-            <th scope="col">Download</th>
+            <th scope="col">Info fattura</th>
           </tr>
         </thead>
         <tbody>
           {invoices &&
             invoices.content.map((invoice) => (
               <>
-                <tr id="invoice" >
+                <tr>
                   <td>{invoice.numero}</td>
                   <td>{invoice.anno}</td>
                   <td>{invoice.data}</td>
                   <td>{invoice.importo}</td>
                   <td>{invoice.stato}</td>
                   <td>
-                    <Button id="save-pdf" onClick={downloadPdf}>
-                      Save PDF
-                    </Button>
+                  <Link to={`/fatture/${invoice.id}`} style={{ marginTop: "2rem" }}>
+        <Button type="button"> Dettagli</Button>
+      </Link>
                   </td>
                 </tr>
               </>
