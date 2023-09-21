@@ -82,7 +82,7 @@ button {
   border: none;
   border-radius: 10px;
   display: block;
-  min-width: 75%;
+  min-width: 45%;
   cursor: pointer;
   font-size: 1.5rem;
 }
@@ -136,9 +136,13 @@ table {
   border: 2px solid brown;
 }
 
+td {
+  text-align: center;
+}
+
 @media print{
   #invoiceDoc {
-    font-size: 2px;
+    font-size: 20px;
   }
 }
 

@@ -44,7 +44,7 @@ const InvoicesList = () => {
                   <td>{invoice.importo}</td>
                   <td>{invoice.stato}</td>
                   <td>
-                  <Link to={`/fatture/${invoice.id}`} style={{ marginTop: "2rem" }}>
+                  <Link to={`/fatture/${invoice.id}`} style={{ marginTop: "2rem", display: "flex", justifyContent: "center" }}>
         <Button type="button"> Dettagli</Button>
       </Link>
                   </td>
@@ -53,7 +53,7 @@ const InvoicesList = () => {
             ))}
         </tbody>
       </table>
-      <Link to="/menu " style={{ marginTop: "2rem" }}>
+      <Link to="/menu " style={{ margin: "2rem" }}>
         <Button type="button"> Torna indietro</Button>
       </Link>
     </Container>

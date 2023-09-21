@@ -10,7 +10,12 @@ const invoice = useSelector((state) => state.fattura.content);
 const dispatch = useDispatch();
 const params = useParams();
 
-const doc = new jsPDF('p','mm',[297, 210]);
+const doc = new jsPDF({
+  unit: "pt",
+  orientation: "p",
+  lineHeight: 1.2
+});
+
 
   const invoiceDoc = document.getElementById("invoiceDoc");
 
@@ -51,12 +56,14 @@ useEffect(() => {
           </tr>
         </tbody>
       </table>
-      <Link to="/fatture " style={{ marginTop: "2rem" }}>
+      <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+      <Link to="/fatture " style={{ margin: "2rem" }}>
         <Button type="button"> Torna indietro</Button>
       </Link>
-      <Button id="save-pdf" onClick={downloadPdf}>
+      <Button type="button" id="save-pdf" style={{ maxHeight: "3.2rem"}} onClick={downloadPdf}>
         Save PDF
       </Button>
+    </div>
     </Container>
   );
 };
