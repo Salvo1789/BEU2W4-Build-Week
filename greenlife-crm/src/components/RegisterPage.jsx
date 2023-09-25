@@ -91,7 +91,7 @@ const RegisterPage = () => {
       <br />
       <br />
 
-      <Button type="submit" >
+      <Button type="submit" style={{margin: "2rem0"}}>
         REGISTER
       </Button>
     </Form>
